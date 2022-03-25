@@ -5,3 +5,14 @@
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
+
+if Rails.env.development?
+  10_000.times do
+    Widget.create!(
+      name: "My widget",
+      sizes: %w[small medium large],
+      colours: %w[red green blue orange yellow],
+      flavours: %w[orange strawberry chocolate peach banana]
+    )
+  end
+end

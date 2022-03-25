@@ -22,45 +22,28 @@ This is a minimal Rails 7 app created for the purpose of demonstrating a bug in 
 5. Compare benchmarks:
     ```ruby
     # Rails 7 behaviour
-    Benchmark.measure { Widget.all.map(&:attribute_names) }
+    Benchmark.ms { Widget.all.map(&:attribute_names) }
 
     # Rails 6 behaviour
-    Benchmark.measure { PatchedWidget.all.map(&:attribute_names) }
+    Benchmark.ms { PatchedWidget.all.map(&:attribute_names) }
     ```
 
 ## Benchmark results
 
-Performed on an Intel Core i7 powered MacBook Pro.
+Performed on an M1 MacBook Pro.
 
 ### Rails 7 behaviour
 
 ```
-> Benchmark.measure { Widget.all.map(&:attribute_names) }
-  Widget Load (46.7ms)  SELECT "widgets".* FROM "widgets"
-=> 
-#<Benchmark::Tms:0x0000000115ca71a8
- @cstime=0.0,
- @cutime=0.0,
- @label="",
- @real=3.254345999972429,
- @stime=1.6684130000000001,
- @total=3.249683,
- @utime=1.58127>
+> Benchmark.ms { Widget.all.map(&:attribute_names) }
+  Widget Load (282.7ms)  SELECT "widgets".* FROM "widgets"
+=> 22544.85599999316
 ```
 
- ### Rails 6 behaviour
+### Rails 6 behaviour
 
 ```
-> Benchmark.measure { PatchedWidget.all.map(&:attribute_names) }
-
-  PatchedWidget Load (53.7ms)  SELECT "widgets".* FROM "widgets"
-=> 
-#<Benchmark::Tms:0x00000001130c5490
- @cstime=0.0,
- @cutime=0.0,
- @label="",
- @real=0.23361299996031448,
- @stime=0.030952999999999342,
- @total=0.23303399999999908,
- @utime=0.20208099999999973>
+> Benchmark.ms { PatchedWidget.all.map(&:attribute_names) }
+  PatchedWidget Load (122.0ms)  SELECT "widgets".* FROM "widgets"
+=> 189.2470000020694
 ```

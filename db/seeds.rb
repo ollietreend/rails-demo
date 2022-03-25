@@ -10,9 +10,9 @@ if Rails.env.development?
   10_000.times do
     Widget.create!(
       name: "My widget",
-      sizes: %w[small medium large],
-      colours: %w[red green blue orange yellow],
-      flavours: %w[orange strawberry chocolate peach banana]
+      sizes: %w[small medium large] * 100,
+      colours: %w[red green blue orange yellow] * 100,
+      flavours: %w[orange strawberry chocolate peach banana] * 100
     )
   end
 end
